@@ -22,5 +22,5 @@ jobs:
       - name: Fazer upload do .tzst
         uses: actions/upload-artifact@v3
         with:
-          name: jogos_classicos
-          path: jogos_classicos.tzst
+          name: JogosClassicos
+          path: JogosClassicos.tzst
