@@ -1,4 +1,4 @@
-name: Build TZST
+name: Build TZST Package
 
 on:
   push:
@@ -9,13 +9,18 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@v3
-    - name: Instalar zstd
-      run: sudo apt-get install zstd -y
-    - name: Compactar pasta para .tzst
-      run: tar --zstd -cf jogos_classicos.tzst "Jogos Classicos"
-    - name: Fazer upload do .tzst
-      uses: actions/upload-artifact@v3
-      with:
-        name: jogos_classicos
-        path: jogos_classicos.tzst
+      - name: Clonar o repositório
+        uses: actions/checkout@v4
+
+      - name: Instalar zstd
+        run: sudo apt-get update && sudo apt-get install -y zstd
+
+      - name: Compactar em .tzst
+        run: |
+          tar --zstd -cf jogos_classicos.tzst "Jogos Classicos"
+
+      - name: Fazer upload do .tzst
+        uses: actions/upload-artifact@v3
+        with:
+          name: jogos_classicos
+          path: jogos_classicos.tzst
