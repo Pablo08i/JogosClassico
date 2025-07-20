@@ -1,0 +1,53 @@
+@font-face {
+  font-family: 'PhoenixEGA';
+  src: url('./Fonts/Px437_PhoenixEGA_9x14.ttf') format('truetype');
+}
+
+body {
+  font-family: 'PhoenixEGA', monospace;
+  background-color: #c0d8f0; /* Fundo azul claro XP */
+  color: black;
+  margin: 0;
+  padding: 20px;
+}
+
+.window {
+  background-color: #e5e5e5;
+  border: 2px solid #000080;
+  box-shadow: 3px 3px #808080;
+  width: 500px;
+  padding: 10px;
+  margin: 20px auto;
+}
+
+.title-bar {
+  background: linear-gradient(to right, #000080, #1a4fba);
+  color: white;
+  padding: 5px 10px;
+  font-weight: bold;
+  border-bottom: 1px solid #000;
+}
+
+.content {
+  padding: 10px;
+  background-color: white;
+  border: 1px solid #999;
+}
+
+.icon-link {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin: 10px 0;
+  text-decoration: none;
+  color: black;
+}
+
+.icon-link:hover {
+  background-color: #d6e8ff;
+}
+
+.icon-link img {
+  width: 32px;
+  height: 32px;
+}
