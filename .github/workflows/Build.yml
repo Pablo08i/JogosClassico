@@ -1,0 +1,33 @@
+name: Build TZSTs
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Clonar repositório
+        uses: actions/checkout@v3
+
+      - name: Instalar zstd
+        run: sudo apt-get update && sudo apt-get install -y zstd
+
+      - name: Empacotar Campo Minado
+        run: |
+          tar --zstd -cf winmine_classico.tzst winmine_classico
+
+      - name: Empacotar Labirinto 3D
+        run: |
+          tar --zstd -cf labirinto_3d.tzst labirinto_3d
+
+      - name: Fazer upload dos `.tzst`
+        uses: actions/upload-artifact@v3
+        with:
+          name: jogos-classicos-tzst
+          path: |
+            winmine_classico.tzst
+            labirinto_3d.tzst
