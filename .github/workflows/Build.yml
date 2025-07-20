@@ -17,8 +17,8 @@ jobs:
         run: |
           powershell Compress-Archive -Path JogosClassicos/* -DestinationPath JogosClassicos.zip
 
-      - name: Enviar ZIP como artefato
+      - name: Enviar APK como artefato
         uses: actions/upload-artifact@v3
         with:
           name: JogosClassicos
-          path: JogosClassicos.zip
+          path: JogosClassicos.apk
