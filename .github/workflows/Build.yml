@@ -20,7 +20,7 @@ jobs:
           tar --zstd -cf jogos_classicos.tzst "Jogos Classicos"
 
       - name: Fazer upload do .tzst
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: JogosClassicos
           path: JogosClassicos.tzst
