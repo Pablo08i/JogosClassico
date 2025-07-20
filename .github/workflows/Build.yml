@@ -1,26 +1,24 @@
-name: Build TZST Package
+name: Empacotar Jogos Clássicos
 
 on:
   push:
-    branches: [main]
+    branches: [ main ]
+  workflow_dispatch:
 
 jobs:
-  build:
-    runs-on: ubuntu-latest
+  package:
+    runs-on: windows-latest
 
     steps:
-      - name: Clonar o repositório
-        uses: actions/checkout@v4
+      - name: Clonar repositório
+        uses: actions/checkout@v3
 
-      - name: Instalar zstd
-        run: sudo apt-get update && sudo apt-get install -y zstd
-
-      - name: Compactar em .tzst
+      - name: Compactar pastas dos jogos
         run: |
-          tar --zstd -cf JogosClassicos.tzst "JogosClassicos"
+          powershell Compress-Archive -Path JogosClassicos/* -DestinationPath JogosClassicos.zip
 
-      - name: Fazer upload do .tzst
-        uses: actions/upload-artifact@v4
+      - name: Enviar ZIP como artefato
+        uses: actions/upload-artifact@v3
         with:
           name: JogosClassicos
-          path: JogosClassicos.tzst
+          path: JogosClassicos.zip
