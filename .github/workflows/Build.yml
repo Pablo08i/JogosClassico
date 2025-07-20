@@ -1,24 +1,36 @@
-name: Empacotar Jogos Clássicos
+name: Build MSI Installer
 
 on:
   push:
-    branches: [ main ]
+    branches: [main]
   workflow_dispatch:
 
 jobs:
-  package:
+  build-msi:
     runs-on: windows-latest
 
     steps:
-      - name: Clonar repositório
-        uses: actions/checkout@v4
+    - name: Checkout repo
+      uses: actions/checkout@v3
 
-      - name: Compactar pastas dos jogos
-        run: |
-          powershell Compress-Archive -Path JogosClassicos/* -DestinationPath JogosClassicos.zip
+    - name: Instalar WiX Toolset
+      run: |
+        choco install wixtoolset -y
+        echo "C:\\Program Files (x86)\\WiX Toolset v3.11\\bin" >> $GITHUB_PATH
 
-      - name: Enviar JAR como artefato
-        uses: actions/upload-artifact@v4
-        with:
-          name: JogosClassicos
-          path: JogosClassicos.jar
+    - name: Criar arquivo WXS para o instalador
+      run: |
+        mkdir wix
+        echo '<?xml version="1.0" encoding="UTF-8"?>' > wix/Product.wxs
+        echo '<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">' >> wix/Product.wxs
+        echo '  <Product Id="*" Name="JogosClassicos" Language="1033" Version="1.0.0.0" Manufacturer="SeuNome" UpgradeCode="PUT-GUID-HERE">' >> wix/Product.wxs
+        echo '    <Package InstallerVersion="200" Compressed="yes" InstallScope="perMachine" />' >> wix/Product.wxs
+        echo '    <MediaTemplate />' >> wix/Product.wxs
+        echo '    <Directory Id="TARGETDIR" Name="SourceDir">' >> wix/Product.wxs
+        echo '      <Directory Id="ProgramFilesFolder">' >> wix/Product.wxs
+        echo '        <Directory Id="INSTALLFOLDER" Name="JogosClassicos" />' >> wix/Product.wxs
+        echo '      </Directory>' >> wix/Product.wxs
+        echo '    </Directory>' >> wix/Product.wxs
+        echo '    <DirectoryRef Id="INSTALLFOLDER">' >> wix/Product.wxs
+        echo '      <Component Id="MainFiles" Guid="PUT-GUID-HERE">' >> wix/Product.wxs
+        echo '        <File Source="$(pwd)\\JogosClassicos\\WINWINE\\
