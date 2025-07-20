@@ -11,14 +11,14 @@ jobs:
 
     steps:
       - name: Clonar repositório
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       - name: Compactar pastas dos jogos
         run: |
           powershell Compress-Archive -Path JogosClassicos/* -DestinationPath JogosClassicos.zip
 
       - name: Enviar APK como artefato
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: JogosClassicos
           path: JogosClassicos.apk
