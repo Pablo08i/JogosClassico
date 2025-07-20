@@ -11,12 +11,12 @@ jobs:
 
     steps:
     - name: Checkout repo
-      uses: actions/checkout@v3
+      uses: actions/checkout@v4
 
     - name: Instalar WiX Toolset
       run: |
         choco install wixtoolset -y
-        echo "C:\\Program Files (x86)\\WiX Toolset v3.11\\bin" >> $GITHUB_PATH
+        echo "C:\\Program Files (x86)\\WiX Toolset v4.11\\bin" >> $GITHUB_PATH
 
     - name: Criar arquivo WXS para o instalador
       run: |
